@@ -18,12 +18,9 @@ class TemplateImporter {
         this.element = document.importNode(temp, true);
     }
 
-    importHeader() {
-        console.log(this.element);
-        console.log(typeof this.element);
+    importElement() {
         const targetElement = document.getElementById(this.targetId);
         targetElement.replaceChildren(...this.element.children);
-        // targetElement.appendChild(this.element);
     }
 }
 
