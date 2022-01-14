@@ -31,6 +31,6 @@ jobs:
           # your surge.sh domain to deploy
           domain: aural-connectors.surge.sh
           # surge.sh login
-          login: ${{ secrets.name }}
+          login: ${{ secrets.SURGE_LOGIN }}
           # surge.sh token, generate it with `surge token` command
-          token: ${{ secrets.token }}
+          token: ${{ secrets.SURGE_TOKEN }}
