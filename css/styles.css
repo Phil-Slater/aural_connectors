@@ -1,3 +1,35 @@
 @import url("colors.css");
 @import url("common.css");
 @import url("header.css");
+
+
+/* About Us Styles */
+.profileImg {
+    width: 100px;
+
+}
+
+#profile{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-info-background);
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 300px;
+    align-content: center;
+    padding: 2em;
+    
+}
+
+#aboutUs {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+
+}
+
+#aboutUs a {
+    color: var(--color-secondary);
+}
+
