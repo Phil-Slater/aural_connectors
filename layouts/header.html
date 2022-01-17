@@ -8,8 +8,27 @@
     </head>
     <body>
         <template id="header">
-            <img src="/img/logo.svg" alt="Aural Connectors Logo" />
-            <h1>Aural Connectors</h1>
+            <div class="logo">
+                <img src="/img/logo.svg" alt="Aural Connectors Logo" />
+                <h1>Aural Connectors</h1>
+            </div>
+            <form id="searchForm">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search by city, genre, artist, or venue name"
+                    required
+                />
+                <select id="searchTypeSelect" value="city">
+                    <option value="city">City</option>
+                    <option value="genre">Genre</option>
+                    <option value="artist">Artist</option>
+                    <option value="venue">Venue</option>
+                </select>
+                <button id="searchButton" class="button button-primary">
+                    Search
+                </button>
+            </form>
         </template>
     </body>
 </html>

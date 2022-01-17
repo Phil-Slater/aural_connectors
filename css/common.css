@@ -10,3 +10,13 @@ body {
     background-color: var(--color-background);
     font-family: "Asap", sans-serif;
 }
+
+.button {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.button.button-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
