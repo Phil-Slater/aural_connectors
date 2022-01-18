@@ -1,11 +1,10 @@
 
 const apikey = 'apikey=UexS3u89soxTBHwmbNoYUHdncWFGGI2t'
-const baseUrl = 'https://app.ticketmaster.com'
+const baseUrl = 'https://app.ticketmaster.com/discovery/v2'
 
-// by city
-export async function getEvents() {
+export async function getConcerts(searchTerm, searchType) {
     try {
-        url = `${baseUrl}/discovery/v2/events.json?classificationName=music&city=${searchBox.value}&sort=date,asc&${apikey}`
+        url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -17,11 +16,9 @@ export async function getEvents() {
     }
 }
 
-
-// gives us a list of venues that are having concerts, but no list of events
-export async function getVenue() {
+export async function getConcertDetails(id) {
     try {
-        url = `${baseUrl}/discovery/v2/venues.json?classificationName=music&${apikey}`
+        url = `${baseUrl}/events/${id}.json?${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -33,11 +30,9 @@ export async function getVenue() {
     }
 }
 
-
-// returns list of events from keyword search (venue as a keyword works)
-export async function getVenue() {
+export async function getVenues(searchTerm) {
     try {
-        url = `${baseUrl}/discovery/v2/events.json?keyword=${searchBox.value}&classificationName=music&sort=date,asc&${apikey}`
+        url = `${baseUrl}/venues.json?classificationName=music&keyword=${searchTerm}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -49,7 +44,47 @@ export async function getVenue() {
     }
 }
 
+export async function getVenueDetails(id) {
+    try {
+        url = `${baseUrl}/venues/${id}.json?${apikey}`
+        const response = await fetch(url)
+        if (response.status === 200) {
+            return await response.json()
+        } else {
+            throw new Error('error getting data')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+export async function getGenres(searchTerm) {
+    try {
+        url = `${baseUrl}/classifications.json?keyword=${searchTerm}&${apikey}`
+        const response = await fetch(url)
+        if (response.status === 200) {
+            return await response.json()
+        } else {
+            throw new Error('error getting data')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export async function getArtists(searchTerm) {
+    try {
+        url = `${baseUrl}/attractions.json?keyword=${searchTerm}&${apikey}`
+        const response = await fetch(url)
+        if (response.status === 200) {
+            return await response.json()
+        } else {
+            throw new Error('error getting data')
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 
