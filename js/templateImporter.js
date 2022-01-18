@@ -16,7 +16,6 @@ class TemplateImporter {
         );
         const temp = templateDocument.getElementById(this.elementId).content;
         this.element = document.importNode(temp, true);
-        console.log('element:', this.element)
     }
 
     importElement() {
@@ -25,8 +24,4 @@ class TemplateImporter {
     }
 }
 
-
 export default TemplateImporter;
-
-
-
