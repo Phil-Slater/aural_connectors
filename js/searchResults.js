@@ -17,7 +17,7 @@ const displayConcerts = (concerts) => {
             concert.dates.start.dateTime
         ).toLocaleString();
         return `
-        <div class="concert">
+        <a class="concert" href="/concert.html?id=${concert.id}">
             <div class="concertImgContainer">
                 <img class="concertImg" src=${concert.images[0].url} />
             </div>
@@ -25,7 +25,7 @@ const displayConcerts = (concerts) => {
             <p><i>${venue.name}</i></p>
             <h4>${startDate}</h4>
             <div class="hover"></div>
-        </div>
+        </a>
     `;
     });
 
