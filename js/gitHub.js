@@ -37,3 +37,4 @@ userData.map(user => {
 } 
 
 getUserInfo();
+// Usernames = [{name:’Jon-cundiff’, description: ‘words about Jon’}]
