@@ -1,5 +1,6 @@
 const aboutUs = document.getElementById("aboutUs")
 
+
 async function getUserInfo () {
     let userNames =  ["jon-cundiff", "Phil-Slater", "Katie-Freeman"]
     const gitHubURL = `https://api.github.com/users`

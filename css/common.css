@@ -1,4 +1,4 @@
-@import url("./colors.css");
+@import url("https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,700;1,400&display=swap");
 
 * {
     box-sizing: border-box;
@@ -8,4 +8,15 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--color-background);
+    font-family: "Asap", sans-serif;
+}
+
+.button {
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.button.button-primary {
+    background-color: var(--color-primary);
+    color: white;
 }
