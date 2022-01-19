@@ -1,6 +1,6 @@
 const footer = document.getElementById("footer");
 const adjustFooterPlacement = () => {
-    if (window.innerHeight < document.body.clientHeight - 68) {
+    if (window.innerHeight < document.body.clientHeight) {
         footer.style.position = "relative";
     } else {
         footer.style.postion = "absolute";
