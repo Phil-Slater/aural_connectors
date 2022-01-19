@@ -73,7 +73,7 @@ export async function getGenres(searchTerm) {
 
 export async function getArtists(searchTerm) {
     try {
-        const url = `${baseUrl}/attractions.json?keyword=${searchTerm}classificationName=music&${apikey}`;
+        const url = `${baseUrl}/attractions.json?keyword=${searchTerm}&classificationName=music&${apikey}`;
         const response = await fetch(url);
         if (response.status === 200) {
             return await response.json();
