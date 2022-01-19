@@ -1,7 +1,8 @@
 import { getArtistDetails } from "./ticketmaster.js";
 import { getParams } from "./getParams.js";
 
-const artistsDiv = document.getElementById("artists");
+const artistDiv = document.getElementById("artistDiv");
+const artistImages = document.getElementById("artistImages")
 const requiredKeys = ["id"];
 
 const params = getParams(requiredKeys);
@@ -10,22 +11,26 @@ if (!params.id) {
 }
 
 const displayArtist = (artist) => {
-    console.log(artist)
-    artistsDiv.innerHTML = `<a class="artist" href="/artist.html?id=${artist.id}">
+    //console.log(artist.classifications[0].genre)
+    artistDiv.innerHTML = `<a class="artist" href="/artist.html?id=${artist.id}">
             <h3>${artist.name}</h3>
-            <h3>some links</h3>
-        </a>`;
+        </a>
+        ${artist.externalLinks.twitter[0] ? `<p><a href="${artist.externalLinks.twitter[0].url}">Twitter</a></p>` : ""}
+        ${artist.externalLinks.lastfm[0] ? `<p><a href="${artist.externalLinks.lastfm[0].url}">last.fm</a></p>` : ""}
+        ${artist.externalLinks.homepage[0] ? `<p><a href="${artist.externalLinks.homepage[0].url}">Website</a></p>` : ""}
+        ${artist.classifications[0].genre ? `<p>Genre: ${artist.classifications[0].genre.name}</p>` : ""}`
 };
 
 async function displayArtistImages(images) {
-    const artistImages = document.getElementById("artistImages")
-    console.log(images)
-    const imagesHTML = images.map(image => {
-        return `<div id="artistImages">
-         <img src=${image.url} >
-         </div>`
-    })
-    artistImages.innerHTML = imagesHTML.join("")
+    console.log(images[1].url)
+    artistImages.innerHTML = `<img src="${images[1].url}">`
+
+    // const imagesHTML = images.map(image => {
+    //     return `<div id="artistImages">
+    //      <img src=${image.url} >
+    //      </div>`
+    // })
+    // artistImages.innerHTML = imagesHTML.join("")
 }
 
 // const displayVenues = (venues) => {
@@ -55,7 +60,7 @@ async function displayArtistImages(images) {
 
 getArtistDetails(params.id).then((artist) => {
     displayArtist(artist)
-    console.log(artist.images)
+    //console.log(artist.images)
     displayArtistImages(artist.images)
 });
 
