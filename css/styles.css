@@ -71,6 +71,8 @@ body {
     justify-content: space-between;
     height: 350px;
     width: 300px;
+    text-decoration: none;
+    color: black;
 }
 
 .concertImgContainer {

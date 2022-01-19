@@ -12,6 +12,13 @@ const navigateToSearchPage = (searchTerm, searchType, category) => {
 };
 
 const displayOptionsModal = (options, search) => {
+    if (options.length === 1) {
+        return navigateToSearchPage(
+            options[0].id,
+            search.type,
+            options[0].name
+        );
+    }
     const modalBG = document.createElement("div");
     const modal = document.createElement("div");
     modal.className = "modal";
@@ -47,7 +54,13 @@ const handleSearchArtist = async (searchTerm) => {
     const response = await getArtists(searchTerm);
     // attractionId
     if (response._embedded) {
-        console.log(response);
+        const { attractions: artists } = response._embedded;
+        const search = {
+            term: searchTerm,
+            type: "attractionId",
+            label: "Artist",
+        };
+        displayOptionsModal(artists, search);
     }
 };
 
@@ -58,13 +71,13 @@ const handleSearchGenre = async (searchTerm) => {
         const musicClassification = classifications.find(
             (classification) => classification.segment.name === "Music"
         );
-        const genresResults = musicClassification.segment._embedded.genres;
+        const { genres } = musicClassification.segment._embedded;
         const search = {
             term: searchTerm,
             type: "classificationId",
             label: "Genre",
         };
-        displayOptionsModal(genresResults, search);
+        displayOptionsModal(genres, search);
     } else {
         console.log("no results");
     }
