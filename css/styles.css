@@ -14,6 +14,9 @@ body {
 .pageContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 0 0 1em;
 }
 
 .pageContainer h3 {
@@ -24,22 +27,27 @@ body {
     width: 100px;
 }
 
-#profile {
+#aboutUs {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1em;
+    column-gap: 1em;
+    width: 100%;
+    justify-content: center;
+}
+
+.profile {
     display: flex;
     flex-direction: column;
     background-color: var(--color-info-background);
     flex-wrap: wrap;
-    width: 300px;
+    width: 90%;
     align-content: center;
     padding: 2em;
-    margin: 1em 3em 0 0;
-}
-
-#aboutUs {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100vw;
-    justify-content: center;
+    border-radius: 10px;
+    border: 2px solid var(--color-info-foreground);
+    box-shadow: 2px 2px 10px rgba(10, 10, 10, 0.6);
+    /* margin: 1em 3em 0 0; */
 }
 
 #aboutUs a {
@@ -170,6 +178,16 @@ body {
 }
 
 /* Venues styles */
+
+@media screen and (min-width: 550px) {
+    #aboutUs {
+        padding: 1em;
+    }
+
+    .profile {
+        width: 300px;
+    }
+}
 
 @media screen and (min-width: 805px) {
     #profile {

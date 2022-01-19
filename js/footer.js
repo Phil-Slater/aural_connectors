@@ -1,9 +1,10 @@
 const footer = document.getElementById("footer");
 const adjustFooterPlacement = () => {
-    if (window.innerHeight < document.body.clientHeight) {
-        footer.style.position = "relative";
+    console.log(window.innerHeight, "-", document.body.clientHeight - 10);
+    if (window.innerHeight < document.body.clientHeight + 10) {
+        footer.className = "footer-float";
     } else {
-        footer.style.postion = "absolute";
+        footer.className = "footer-anchor";
     }
 };
 
