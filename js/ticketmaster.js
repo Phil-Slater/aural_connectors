@@ -2,9 +2,10 @@
 const apikey = 'apikey=UexS3u89soxTBHwmbNoYUHdncWFGGI2t'
 const baseUrl = 'https://app.ticketmaster.com/discovery/v2'
 
-export async function getConcerts(searchTerm, searchType) {
+export async function getConcerts(searchTerm, searchType, radius = 50, count = null) {
     try {
-        url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc&${apikey}`
+        const countSearch = count ? `&size=${count}` : ""
+        const url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc${countSearch}&radius=${radius}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -18,7 +19,7 @@ export async function getConcerts(searchTerm, searchType) {
 
 export async function getConcertDetails(id) {
     try {
-        url = `${baseUrl}/events/${id}.json?${apikey}`
+        const url = `${baseUrl}/events/${id}.json?${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -32,7 +33,7 @@ export async function getConcertDetails(id) {
 
 export async function getVenues(searchTerm) {
     try {
-        url = `${baseUrl}/venues.json?classificationName=music&keyword=${searchTerm}&${apikey}`
+        const url = `${baseUrl}/venues.json?classificationName=music&keyword=${searchTerm}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -46,7 +47,7 @@ export async function getVenues(searchTerm) {
 
 export async function getVenueDetails(id) {
     try {
-        url = `${baseUrl}/venues/${id}.json?${apikey}`
+        const url = `${baseUrl}/venues/${id}.json?${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -60,7 +61,7 @@ export async function getVenueDetails(id) {
 
 export async function getGenres(searchTerm) {
     try {
-        url = `${baseUrl}/classifications.json?keyword=${searchTerm}&${apikey}`
+        const url = `${baseUrl}/classifications.json?keyword=${searchTerm}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -74,7 +75,7 @@ export async function getGenres(searchTerm) {
 
 export async function getArtists(searchTerm) {
     try {
-        url = `${baseUrl}/attractions.json?keyword=${searchTerm}&${apikey}`
+        const url = `${baseUrl}/attractions.json?keyword=${searchTerm}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -85,8 +86,6 @@ export async function getArtists(searchTerm) {
         console.log(error)
     }
 }
-
-
 
 // export function displayEvents(event) {
 //     event._embedded.events.forEach((item) => {
