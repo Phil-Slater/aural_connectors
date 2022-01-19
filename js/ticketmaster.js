@@ -4,10 +4,10 @@ const baseUrl = 'https://app.ticketmaster.com/discovery/v2'
 
 export async function getConcerts(searchTerm, searchType, radius = 50, count = null) {
     try {
-        const time = new Date()
-        const today = time.toISOString().split('.')[0] + "Z"
+        const today = new Date()
+        const time = today.toISOString().split('.')[0] + "Z"
         const countSearch = count ? `&size=${count}` : ""
-        const url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc${countSearch}&radius=${radius}&startDateTime=${today}&${apikey}`
+        const url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc${countSearch}&radius=${radius}&startDateTime=${time}&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
