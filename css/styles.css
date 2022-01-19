@@ -83,7 +83,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     height: 350px;
-    width: 300px;
+    width: 100%;
     text-decoration: none;
     color: black;
 }
@@ -167,8 +167,6 @@ body {
 
 #upcomingConcerts {
     display: flex;
-    
-
 }
 
 /* Venues styles */
@@ -186,4 +184,14 @@ body {
     }
 }
 
+@media screen and (min-width: 805px) {
+    .concert {
+        width: 48%;
+    }
+}
 
+@media screen and (min-width: 1115px) {
+    .concert {
+        width: 32%;
+    }
+}
