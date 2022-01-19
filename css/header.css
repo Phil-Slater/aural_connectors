@@ -40,6 +40,45 @@
     padding: 5px;
 }
 
+.modal-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(10, 10, 10, 0.8);
+    z-index: 10;
+}
+
+.modal {
+    position: absolute;
+    width: 80%;
+    top: 3em;
+    left: 10%;
+    background-color: white;
+    padding: 1em 2em;
+    text-align: center;
+}
+
+.modal .options {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.7em;
+}
+
+.modal h3 {
+    margin: 0;
+}
+
+.modal p {
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+.modal button {
+    background-color: var(--color-info-background);
+}
+
 @media screen and (min-width: 550px) {
     #header {
         height: 5em;
@@ -71,5 +110,20 @@
     #searchTypeSelect,
     #searchButton {
         width: 18%;
+    }
+
+    .modal {
+        top: 10em;
+    }
+
+    .modal .options {
+        flex-direction: row;
+        flex-wrap: wrap;
+        column-gap: 0.7em;
+        justify-content: center;
+    }
+
+    .modal button {
+        width: 200px;
     }
 }

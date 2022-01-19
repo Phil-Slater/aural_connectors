@@ -11,7 +11,6 @@ if (!params.searchTerm || !params.searchType) {
 
 const displayConcerts = (concerts) => {
     const concertItems = concerts.map((concert) => {
-        console.log(concert);
         const venue = concert._embedded.venues[0];
         const startDate = new Date(
             concert.dates.start.dateTime
