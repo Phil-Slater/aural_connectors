@@ -43,10 +43,7 @@ const displayConcerts = (concerts) => {
 const displayVenues = (venues) => {
     console.log(venues);
     const venueItems = venues.map((venue) => {
-        let imgURL;
-        if (venue.images) {
-            imgURL = venue.images[0].url;
-        }
+        const imgURL = venue.images ? venue.images[0].url : "img/building.png";
         return `
             <a class="concert" href="/venue.html?id=${venue.id}">
                 <div class="concertImgContainer">
@@ -58,7 +55,6 @@ const displayVenues = (venues) => {
             </a>
         `;
     });
-    console.log("hi");
     searchDiv.innerHTML = venueItems.join("");
 };
 
