@@ -4,7 +4,7 @@ const baseUrl = 'https://app.ticketmaster.com/discovery/v2'
 
 export async function getConcerts(searchTerm, searchType) {
     try {
-        url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc&${apikey}`
+        const url = `${baseUrl}/events.json?classificationName=music&${searchType}=${searchTerm}&sort=date,asc&${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
@@ -46,7 +46,7 @@ export async function getVenues(searchTerm) {
 
 export async function getVenueDetails(id) {
     try {
-        url = `${baseUrl}/venues/${id}.json?${apikey}`
+       const url = `${baseUrl}/venues/${id}.json?${apikey}`
         const response = await fetch(url)
         if (response.status === 200) {
             return await response.json()
