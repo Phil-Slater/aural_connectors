@@ -1,4 +1,4 @@
-import { getArtistDetails } from "./ticketmaster.js";
+import { getArtistDetails, getConcerts } from "./ticketmaster.js";
 import { getParams } from "./getParams.js";
 
 const artistDiv = document.getElementById("artistDiv");
@@ -31,7 +31,42 @@ async function displayArtistImages(images) {
     artistImages.innerHTML = `<img src="${images[index].url}">`
 };
 
+async function displayUpcomingConcerts() {
+    const upcomingConcerts = document.getElementById("upcomingConcerts")
+    const concertData = await getConcerts(params.id, "attractionId")
+    const events = concertData._embedded.events
+    const concertsHTML = events.map(concert => {
+        let countryOrState = concert._embedded.venues[0].country.name
+        if (concert._embedded.venues[0].state) {
+            countryOrState = concert._embedded.venues[0].state.stateCode
+                ? concert._embedded.venues[0].state.stateCode
+                : concert._embedded.venues[0].state.name;
+        }
+        const startDate = new Date(
+            concert.dates.start.dateTime
+        ).toLocaleString();
+
+        return `
+       <div class="box">
+            <a class="concert carouselItem" href="/concert.html?id=${concert.id}">
+                <div class="concertImgContainer">
+                    <img class="concertImg" src=${concert.images[0].url} />
+                </div>
+                <h3>${concert.name}</h3>
+                ${concert._embedded.venues[0].name ? `<p><i>${concert._embedded.venues[0].name}</i></p>` : ""}
+                <b>${concert._embedded.venues[0].city.name}, ${countryOrState}</b>
+                <h4>${startDate}</h4>
+                <div class="hover"></div>
+            </a>
+        </div>
+        `
+    })
+    upcomingConcerts.innerHTML = concertsHTML.join("")
+}
+
 getArtistDetails(params.id).then((artist) => {
     displayArtist(artist)
     displayArtistImages(artist.images)
+    displayUpcomingConcerts()
 });
+
