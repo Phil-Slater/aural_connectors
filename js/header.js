@@ -4,6 +4,8 @@ let searchForm;
 let searchInput;
 let searchTypeSelect;
 
+const noResultsDiv = document.getElementById("noResultsDiv")
+
 const navigateToSearchPage = (searchTerm, searchType, category) => {
     const rawSearch = category ? `&rawSearch=${category}` : "";
     window.location.assign(
@@ -61,6 +63,8 @@ const handleSearchArtist = async (searchTerm) => {
             label: "Artist",
         };
         displayOptionsModal(artists, search);
+    } else {
+        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`
     }
 };
 
@@ -79,7 +83,7 @@ const handleSearchGenre = async (searchTerm) => {
         };
         displayOptionsModal(genres, search);
     } else {
-        console.log("no results");
+        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`
     }
 };
 
