@@ -35,6 +35,7 @@ async function getNearbyLodges(location) {
     return results.results;
 }
 
+
 function displayVenueDetails(venueDetails) {
     const fullAddress = `${venueDetails.address.line1}, ${venueDetails.city.name}, ${venueDetails.state.stateCode}, ${venueDetails.country.countryCode}`;
     const venueHTML = `
