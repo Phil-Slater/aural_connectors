@@ -1,4 +1,4 @@
-import { getArtistDetails } from "./ticketmaster.js";
+import { getArtistDetails, getConcerts } from "./ticketmaster.js";
 import { getParams } from "./getParams.js";
 
 const artistDiv = document.getElementById("artistDiv");
@@ -13,26 +13,60 @@ if (!params.id) {
 const displayArtist = (artist) => {
     let externalLinkItems = []
     if (artist.externalLinks) {
-        const valuableKeys = ['twitter', 'lastfm', 'spotify', 'youtube', 'facebook', 'homepage'];
+        const valuableKeys = ['lastfm', 'spotify', 'twitter', 'youtube', 'facebook', 'homepage'];
         const externalLinkKeys = valuableKeys.filter(key => artist.externalLinks[key])
         externalLinkItems = externalLinkKeys.map(key => `
         <p><a href="${artist.externalLinks[key][0].url}">${key}</a></p>
       `)
     }
-    artistDiv.innerHTML = `<a href="/artist.html?id=${artist.id}">
-          <h3>${artist.name}</h3></a>
+    artistDiv.innerHTML = `<h2>${artist.name}</h2>
           ${externalLinkItems.join('')}
           ${artist.classifications[0].genre ? `<p>Genre: ${artist.classifications[0].genre.name}</p>` : ""}`
 
 };
 
 async function displayArtistImages(images) {
-    console.log(images[1].url)
-    artistImages.innerHTML = `<img src="${images[0].url}">`
+    const max = Math.max.apply(Math, images.map(function (img) { return img.width; }))
+    const index = images.findIndex(image => image.width === max)
+    artistImages.innerHTML = `<img src="${images[index].url}">`
 };
+
+async function displayUpcomingConcerts() {
+    const upcomingConcerts = document.getElementById("upcomingConcerts")
+    const concertData = await getConcerts(params.id, "attractionId")
+    const events = concertData._embedded.events
+    const concertsHTML = events.map(concert => {
+        let countryOrState = concert._embedded.venues[0].country.name
+        if (concert._embedded.venues[0].state) {
+            countryOrState = concert._embedded.venues[0].state.stateCode
+                ? concert._embedded.venues[0].state.stateCode
+                : concert._embedded.venues[0].state.name;
+        }
+        const startDate = new Date(
+            concert.dates.start.dateTime
+        ).toLocaleString();
+
+        return `
+       <div class="box">
+            <a class="concert carouselItem" href="/concert.html?id=${concert.id}">
+                <div class="concertImgContainer">
+                    <img class="concertImg" src=${concert.images[0].url} />
+                </div>
+                <h3>${concert.name}</h3>
+                ${concert._embedded.venues[0].name ? `<p><i>${concert._embedded.venues[0].name}</i></p>` : ""}
+                <b>${concert._embedded.venues[0].city.name}, ${countryOrState}</b>
+                <h4>${startDate}</h4>
+                <div class="hover"></div>
+            </a>
+        </div>
+        `
+    })
+    upcomingConcerts.innerHTML = concertsHTML.join("")
+}
 
 getArtistDetails(params.id).then((artist) => {
     displayArtist(artist)
-    console.log(artist.images)
     displayArtistImages(artist.images)
+    displayUpcomingConcerts()
 });
+
