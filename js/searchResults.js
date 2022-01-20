@@ -11,7 +11,7 @@ if (!params.searchTerm || !params.searchType) {
 }
 
 const displayVenues = (venues) => {
-    console.log(venues);
+    const searchHeading = searchDiv.parentElement.children[0];
     const venueItems = venues.map((venue) => {
         const imgURL = venue.images ? venue.images[0].url : "img/building.png";
         return `
@@ -25,6 +25,7 @@ const displayVenues = (venues) => {
             </a>
         `;
     });
+    searchHeading.innerHTML = "Venue Results:";
     searchDiv.innerHTML = venueItems.join("");
 };
 
