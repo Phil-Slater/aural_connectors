@@ -13,26 +13,25 @@ if (!params.id) {
 const displayArtist = (artist) => {
     let externalLinkItems = []
     if (artist.externalLinks) {
-        const valuableKeys = ['twitter', 'lastfm', 'spotify', 'youtube', 'facebook', 'homepage'];
+        const valuableKeys = ['lastfm', 'spotify', 'twitter', 'youtube', 'facebook', 'homepage'];
         const externalLinkKeys = valuableKeys.filter(key => artist.externalLinks[key])
         externalLinkItems = externalLinkKeys.map(key => `
         <p><a href="${artist.externalLinks[key][0].url}">${key}</a></p>
       `)
     }
-    artistDiv.innerHTML = `<a href="/artist.html?id=${artist.id}">
-          <h3>${artist.name}</h3></a>
+    artistDiv.innerHTML = `<h2>${artist.name}</h2>
           ${externalLinkItems.join('')}
           ${artist.classifications[0].genre ? `<p>Genre: ${artist.classifications[0].genre.name}</p>` : ""}`
 
 };
 
 async function displayArtistImages(images) {
-    console.log(images[1].url)
-    artistImages.innerHTML = `<img src="${images[0].url}">`
+    const max = Math.max.apply(Math, images.map(function (img) { return img.width; }))
+    const index = images.findIndex(image => image.width === max)
+    artistImages.innerHTML = `<img src="${images[index].url}">`
 };
 
 getArtistDetails(params.id).then((artist) => {
     displayArtist(artist)
-    console.log(artist.images)
     displayArtistImages(artist.images)
 });
