@@ -4,6 +4,7 @@ import { getParams } from "./getParams.js";
 
 const searchDiv = document.getElementById("search");
 const requiredKeys = ["searchTerm", "searchType"];
+const noResultsDiv = document.getElementById("noResultsDiv")
 
 const params = getParams(requiredKeys);
 if (!params.searchTerm || !params.searchType) {
@@ -46,7 +47,7 @@ const getResults = async () => {
             displayConcerts(concerts);
         }
     } catch (error) {
-        // display error getting results message
+        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${params.searchTerm}.</h4>`
     }
 };
 
