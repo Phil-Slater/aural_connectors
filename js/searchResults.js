@@ -1,4 +1,5 @@
 import { getConcerts, getVenues, getVenueDetails } from "./ticketmaster.js";
+import { displayConcerts } from "./displayConcerts.js";
 import { getParams } from "./getParams.js";
 
 const searchDiv = document.getElementById("search");
@@ -9,39 +10,8 @@ if (!params.searchTerm || !params.searchType) {
     window.location.assign("/");
 }
 
-const displayConcerts = (concerts) => {
-    const concertItems = concerts.map((concert) => {
-        console.log(concert);
-        const venue = concert._embedded.venues[0];
-        let venueName = venue.name;
-        if (!venueName) {
-            venueName = "";
-            getVenueDetails(venue.id).then((venueDetails) => {
-                console.log(venueDetails);
-                // searchDiv.querySelector(`.${venue.id}`).innerHTML = venueDetails;
-            });
-        }
-        const startDate = new Date(
-            concert.dates.start.dateTime
-        ).toLocaleString();
-        return `
-        <a class="concert" href="/concert.html?id=${concert.id}">
-            <div class="concertImgContainer">
-                <img class="concertImg" src=${concert.images[0].url} />
-            </div>
-            <h3>${concert.name}</h3>
-            <p><i>${venueName}</i> <b>${venue.city.name}, ${venue.country.name}</b></p>
-            <h4>${startDate}</h4>
-            <div class="hover"></div>
-        </a>
-    `;
-    });
-
-    searchDiv.innerHTML = concertItems.join("");
-};
-
 const displayVenues = (venues) => {
-    console.log(venues);
+    const searchHeading = searchDiv.parentElement.children[0];
     const venueItems = venues.map((venue) => {
         const imgURL = venue.images ? venue.images[0].url : "img/building.png";
         return `
@@ -55,6 +25,7 @@ const displayVenues = (venues) => {
             </a>
         `;
     });
+    searchHeading.innerHTML = "Venue Results:";
     searchDiv.innerHTML = venueItems.join("");
 };
 
