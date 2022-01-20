@@ -254,6 +254,7 @@ body {
 #venueInfo {
     display: flex;
     justify-content: space-between;
+    width: 100%;
     padding: 1em 2em;
     column-gap: 3em;
 }
