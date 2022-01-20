@@ -88,12 +88,18 @@ body {
     color: black;
 }
 
+.carouselItem {
+    min-width: 300px;
+
+}
+
 .concertImgContainer {
     height: 40%;
     border-radius: 10px;
     background-color: var(--color-info-foreground);
     text-align: center;
     border: 1px solid var(--color-info-foreground);
+    
 }
 
 .concertImg {
@@ -152,6 +158,7 @@ body {
 }
 
 .concertInfo,
+
 #venues {
     display: flex;
     flex-direction: column;
@@ -164,12 +171,73 @@ body {
     border-radius: 4px;
     box-shadow: 2px 2px 10px var(--color-secondary);
 }
-
-#upcomingConcerts {
+#venueImages {
     display: flex;
+    column-gap: 1em;
+    width: 80%;
+    overflow-x: scroll;
+    padding: 2em;
+    
 }
 
-/* Venues styles */
+#venueImages img{
+    width: 400px;
+    border: 4px solid var(--color-primary);
+
+}
+
+#upcomingConcerts  {
+    display: flex;
+    column-gap: 1em;
+    overflow-x: scroll;
+    width: 96vw;
+    
+
+   
+    
+}
+
+.box {
+    background-color: var(--color-info-background);
+    padding: 2em;
+
+  }
+
+#venueInfo {
+    display: flex;
+    margin-left: 2em;
+
+}
+
+
+
+/* * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+ possible carolsel for upcoming conerts 
+  #upcomingConcerts {
+    background: #EEE;
+  }
+  
+  .upcomingConcert {
+    width: 66%;
+    height: 200px;
+    margin-right: 10px;
+    background: #8C8;
+    counter-increment: gallery-cell;
+  }
+  
+ 
+  .upcomingConcert:before {
+    display: block;
+    text-align: center;
+    content: counter(gallery-cell);
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
+  } */
 
 @media screen and (max-width: 708px) {
     #profile {
