@@ -13,8 +13,6 @@ if (!params.id) {
 async function displayVenueDetails () {
     const venueInfo = document.getElementById("venueInfo")
     const data = await getVenueDetails(params.id)
-    const map = document.getElementById("map")
-    console.log(data)
     const fullAddress =`${data.address.line1}, ${data.city.name}, ${data.state.stateCode}, ${data.country.countryCode}`
     const venueHTML = 
     `
@@ -39,7 +37,6 @@ async function displayVenueDetails () {
             </div>
     </div>
     `
-    console.log(data)
 
 displayVenueImages(data.images)
 venueInfo.innerHTML = venueHTML
