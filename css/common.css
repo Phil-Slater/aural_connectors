@@ -9,6 +9,7 @@ body {
     padding: 0;
     background-color: var(--color-background);
     font-family: "Asap", sans-serif;
+    overflow-x: hidden;
 }
 
 .button {
