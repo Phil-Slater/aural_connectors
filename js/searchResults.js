@@ -3,8 +3,10 @@ import { displayConcerts } from "./displayConcerts.js";
 import { getParams } from "./getParams.js";
 
 const searchDiv = document.getElementById("search");
+const searchHeading = searchDiv.parentElement.children[0];
+
 const requiredKeys = ["searchTerm", "searchType"];
-const noResultsDiv = document.getElementById("noResultsDiv")
+const noResultsDiv = document.getElementById("noResultsDiv");
 
 const params = getParams(requiredKeys);
 if (!params.searchTerm || !params.searchType) {
@@ -12,7 +14,6 @@ if (!params.searchTerm || !params.searchType) {
 }
 
 const displayVenues = (venues) => {
-    const searchHeading = searchDiv.parentElement.children[0];
     const venueItems = venues.map((venue) => {
         const imgURL = venue.images ? venue.images[0].url : "img/building.png";
         return `
@@ -26,13 +27,13 @@ const displayVenues = (venues) => {
             </a>
         `;
     });
-    searchHeading.innerHTML = "Venue Results:";
     searchDiv.innerHTML = venueItems.join("");
 };
 
 const getResults = async () => {
     try {
         if (params.searchType === "venue") {
+            searchHeading.innerHTML = "Venue Results:";
             const venuesResponse = await getVenues(params.searchTerm);
             const { venues } = venuesResponse._embedded;
             displayVenues(venues);
@@ -47,7 +48,7 @@ const getResults = async () => {
             displayConcerts(concerts);
         }
     } catch (error) {
-        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${params.searchTerm}.</h4>`
+        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${params.searchTerm}.</h4>`;
     }
 };
 
