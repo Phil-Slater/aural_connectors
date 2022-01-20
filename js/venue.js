@@ -2,6 +2,7 @@ import { getVenueDetails, getConcerts } from "./ticketmaster.js";
 import { getParams } from "./getParams.js";
 
 const venueInfo = document.getElementById("venueInfo");
+const venueImages = document.getElementById("venueImages");
 const upcomingConcerts = document.getElementById("upcomingConcerts");
 const foodNearby = document.getElementById("foodNearby");
 const lodgingNearby = document.getElementById("lodgingNearby");
@@ -81,7 +82,6 @@ function displayVenueDetails(venueDetails) {
 }
 
 function displayVenueImages(images) {
-    const venueImages = document.getElementById("venueImages");
     const imagesHTML = images.map((image) => {
         const imgSrc = image.url ? image.url : "img/venug.png";
         return `<img src=${imgSrc}>`;
@@ -142,15 +142,26 @@ function displayLodging(lodges) {
     }
 }
 
-getVenueDetails(params.id).then(async (venueDetails) => {
-    displayVenueDetails(venueDetails);
-    const { location } = venueDetails;
-    const restaurants = await getNearbyFood(location);
-    displayRestaurants(restaurants);
-    const lodges = await getNearbyLodges(location);
-    displayLodging(lodges);
-});
+getVenueDetails(params.id)
+    .then(async (venueDetails) => {
+        displayVenueDetails(venueDetails);
+        const { location } = venueDetails;
+        const restaurants = await getNearbyFood(location);
+        displayRestaurants(restaurants);
+        const lodges = await getNearbyLodges(location);
+        displayLodging(lodges);
+    })
+    .catch((err) => {
+        venueInfo.innerHTML = "";
+        venueImages.innerHTML = "Unable to retrieve venue information.";
+        displayRestaurants([]);
+        displayLodging([]);
+    });
 
-getConcerts(params.id, "venueId").then((concertsData) => {
-    displayUpcomingConcerts(concertsData);
-});
+getConcerts(params.id, "venueId")
+    .then((concertsData) => {
+        displayUpcomingConcerts(concertsData);
+    })
+    .catch((err) => {
+        upcomingConcerts.innerHTML = "Unable to retrieve upcoming concerts.";
+    });
