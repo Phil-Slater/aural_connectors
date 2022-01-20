@@ -4,10 +4,17 @@
     height: 6em;
     box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.3);
     background-color: var(--color-info-background);
-    position: absolute;
     bottom: 0;
     width: 100%;
     margin-top: 2em;
+}
+
+.footer-float {
+    position: relative;
+}
+
+.footer-anchor {
+    position: absolute;
 }
 
 #footer img {

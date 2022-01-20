@@ -105,16 +105,18 @@ export const loadHeaderData = () => {
     const searchButton = document.getElementById("searchButton");
 
     const params = getParams(["searchTerm", "searchType", "rawSearch"]);
-    if (params.rawSearch) {
-        searchInput.value = params.rawSearch;
-    } else if (params.searchTerm) {
-        searchInput.value = params.searchTerm;
+    if (params.searchType !== "geoPoint") {
+        if (params.rawSearch) {
+            searchInput.value = params.rawSearch;
+        } else if (params.searchTerm) {
+            searchInput.value = params.searchTerm;
+        }
+        searchTypeSelect.value = params.searchType ? params.searchType : "city";
     }
-    searchTypeSelect.value = params.searchType ? params.searchType : "city";
+
     searchButton.addEventListener("click", handleSearchClick);
 
     searchTypeSelect.addEventListener("change", (event) => {
-        searchTypeSelect.value = event.target.value;
         searchTypeSelect.style.backgroundImage = `url(/img/${event.target.value}.png)`;
     });
 };
