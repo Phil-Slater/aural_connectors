@@ -4,13 +4,42 @@ let searchForm;
 let searchInput;
 let searchTypeSelect;
 
-const noResultsDiv = document.getElementById("noResultsDiv")
+const noResultsDiv = document.getElementById("noResultsDiv");
 
 const navigateToSearchPage = (searchTerm, searchType, category) => {
     const rawSearch = category ? `&rawSearch=${category}` : "";
     window.location.assign(
         `/search.html?searchTerm=${searchTerm}&searchType=${searchType}${rawSearch}`
     );
+};
+
+function wait(time) {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(), time);
+    });
+}
+
+const displaySearchError = (message) => {
+    const errorDiv = document.createElement("div");
+    errorDiv.id = "error";
+    errorDiv.innerHTML = message;
+    document.body.appendChild(errorDiv);
+    console.log("hi");
+    wait(1)
+        .then(() => {
+            console.log("move in");
+            errorDiv.className = "errorDisplay";
+            return wait(4000);
+        })
+        .then(() => {
+            console.log("move out");
+            errorDiv.className = "";
+            return wait(1000);
+        })
+        .then(() => {
+            console.log("remove");
+            document.body.removeChild(errorDiv);
+        });
 };
 
 const displayOptionsModal = (options, search) => {
@@ -53,37 +82,44 @@ const displayOptionsModal = (options, search) => {
 };
 
 const handleSearchArtist = async (searchTerm) => {
-    const response = await getArtists(searchTerm);
-    // attractionId
-    if (response._embedded) {
-        const { attractions: artists } = response._embedded;
-        const search = {
-            term: searchTerm,
-            type: "attractionId",
-            label: "Artist",
-        };
-        displayOptionsModal(artists, search);
-    } else {
-        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`
+    try {
+        const response = await getArtists(searchTerm);
+        if (response._embedded) {
+            const { attractions: artists } = response._embedded;
+            const search = {
+                term: searchTerm,
+                type: "attractionId",
+                label: "Artist",
+            };
+            displayOptionsModal(artists, search);
+        } else {
+            noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`;
+        }
+    } catch {
+        displaySearchError(`No artist results for "${searchTerm}"`);
     }
 };
 
 const handleSearchGenre = async (searchTerm) => {
-    const response = await getGenres(searchTerm);
-    if (response._embedded) {
-        const { classifications } = response._embedded;
-        const musicClassification = classifications.find(
-            (classification) => classification.segment.name === "Music"
-        );
-        const { genres } = musicClassification.segment._embedded;
-        const search = {
-            term: searchTerm,
-            type: "classificationId",
-            label: "Genre",
-        };
-        displayOptionsModal(genres, search);
-    } else {
-        noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`
+    try {
+        const response = await getGenres(searchTerm);
+        if (response._embedded) {
+            const { classifications } = response._embedded;
+            const musicClassification = classifications.find(
+                (classification) => classification.segment.name === "Music"
+            );
+            const { genres } = musicClassification.segment._embedded;
+            const search = {
+                term: searchTerm,
+                type: "classificationId",
+                label: "Genre",
+            };
+            displayOptionsModal(genres, search);
+        } else {
+            noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`;
+        }
+    } catch {
+        displaySearchError(`No genre results for "${searchTerm}"`);
     }
 };
 

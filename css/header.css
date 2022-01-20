@@ -79,6 +79,22 @@
     background-color: var(--color-info-background);
 }
 
+#error {
+    position: absolute;
+    top: -5em;
+    left: 2em;
+    transition: top 0.9s ease-in-out;
+    background-color: var(--color-primary);
+    color: white;
+    opacity: 0.9;
+    border-radius: 5px;
+    padding: 1em 3em;
+}
+
+#error.errorDisplay {
+    top: 2em;
+}
+
 @media screen and (min-width: 550px) {
     #header {
         height: 5em;
@@ -125,5 +141,13 @@
 
     .modal button {
         width: 200px;
+    }
+
+    #error {
+        left: calc(50% - 6em);
+    }
+
+    #error.errorDisplay {
+        top: 4em;
     }
 }

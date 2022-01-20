@@ -3,7 +3,6 @@ const searchDiv = document.getElementById("search");
 
 export const displayConcerts = (concerts) => {
     const concertItems = concerts.map((concert) => {
-        console.log(concert);
         const venue = concert._embedded.venues[0];
         let venueName = venue.name;
         if (!venueName) {
