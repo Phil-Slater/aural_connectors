@@ -25,7 +25,7 @@ The app is featured with unique designs and functionalities in each page includi
 ![](auralConnectors.gif)
 
 ## Concerts Page on mobile:
-![](AuralConnectors-mobile.gif)
+![]()
    
 ## Live link:  
 https://aural-connectors.surge.sh/
