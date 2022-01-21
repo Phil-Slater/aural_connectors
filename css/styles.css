@@ -414,7 +414,7 @@ body {
     }
 
     #concertDetails a {
-        display: inline;
+        width: fit-content;
         position: relative;
         top: 1em;
     }
