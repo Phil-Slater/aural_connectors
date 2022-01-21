@@ -27,7 +27,9 @@ async function displayConcertDetails(concertDetails) {
                 ? `<p>${healthCheck}</p>`
                 : "No Health Check information available"
         }
-        <a href="${concertDetails.url}" target="_blank">Buy Tickets</a>
+        <a class="ticket" href="${
+            concertDetails.url
+        }" target="_blank">Buy Tickets</a>
     </div>
     <div class="mapouter">
         <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
@@ -44,15 +46,16 @@ async function getArtistNames(concertDetails) {
     const artistNames = document.getElementById("artistNames");
     const artists = concertDetails._embedded.attractions;
     const artistHTML = artists.map((artist) => {
-        return `<li><a href="/artists.html?id=${artist.id}">${artist.name}</a></li>`;
+        return `<li><a href="/artist.html?id=${artist.id}">${artist.name}</a></li>`;
     });
 
     artistNames.innerHTML = artistHTML.join("");
 }
 
 function getVenueNames(venues) {
+    console.log(venues);
     const venueHTML = venues.map((venue) => {
-        return `<h2>${venue.name}<h2>`;
+        return `<h2><a class="venue" href="/venue.html?id=${venue.id}">${venue.name}</a><h2>`;
     });
 
     return venueHTML.join(" ");

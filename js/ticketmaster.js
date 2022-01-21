@@ -18,8 +18,8 @@ export async function getConcerts(
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
     }
 }
 
@@ -32,8 +32,8 @@ export async function getConcertDetails(id) {
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
     }
 }
 
@@ -46,8 +46,8 @@ export async function getVenues(searchTerm) {
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
     }
 }
 
@@ -60,8 +60,8 @@ export async function getVenueDetails(id) {
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
     }
 }
 
@@ -74,35 +74,35 @@ export async function getGenres(searchTerm) {
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
     }
 }
 
 export async function getArtists(searchTerm) {
     try {
-        const url = `${baseUrl}/attractions.json?keyword=${searchTerm}&${apikey}`
-        const response = await fetch(url)
-        if (response.status === 200) {
-            return await response.json()
-        } else {
-            throw new Error('error getting data')
-        }
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-export async function getArtistDetails(id) {
-    try {
-        const url = `${baseUrl}/attractions/${id}.json?${apikey}`
-        const response = await fetch(url)
+        const url = `${baseUrl}/attractions.json?keyword=${searchTerm}&${apikey}`;
+        const response = await fetch(url);
         if (response.status === 200) {
             return await response.json();
         } else {
             throw new Error("error getting data");
         }
-    } catch (error) {
-        console.log(error);
+    } catch {
+        throw new Error("error getting data");
+    }
+}
+
+export async function getArtistDetails(id) {
+    try {
+        const url = `${baseUrl}/attractions/${id}.json?${apikey}`;
+        const response = await fetch(url);
+        if (response.status === 200) {
+            return await response.json();
+        } else {
+            throw new Error("error getting data");
+        }
+    } catch {
+        throw new Error("error getting data");
     }
 }
