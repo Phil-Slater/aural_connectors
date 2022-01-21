@@ -370,7 +370,8 @@ body {
     font-weight: bold;
 }
 
-#artistNames a {
+#artistNames a,
+.venue {
     color: var(--color-primary);
     text-decoration: none;
     padding: 10px;
