@@ -21,12 +21,13 @@ async function displayConcertDetails(concertDetails) {
         <h1>${concertDetails.name}</h1>
         <h3>${venueNames}</h3>
         <p>${startDate}<p>
-        <h>Health Check</h4> 
-            ${
-                healthCheck
-                    ? `<p>${healthCheck}</p>`
-                    : "No Health Check information available"
-            }
+        <h4>Health Check: </h4> 
+        ${
+            healthCheck
+                ? `<p>${healthCheck}</p>`
+                : "No Health Check information available"
+        }
+        <a href = ${data.url}>Buy Tickets</a>
     </div>
     <div class="mapouter">
         <div class="gmap_canvas">
