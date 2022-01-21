@@ -2,7 +2,22 @@
 ## Purpose of the app:
    Allow users to find concerts nearby.
 ## How to use:
-   When you open the app, you can allow location access and concerts near you will automatically come up. You can also go to our search bar, select City, Venue, Genre or Artist and type in what you would like to find. Click the search button and you will be on your way to finding the perfect concert. Once you get to the search results and select a concert, you will find the details of the concert, a map that can give you directions to the venu, and resturants and hotels nearby. From the concert details page you can also click on the featured artists to find out more about their music. From the Artist page, you will find links to their soical media pages and all of their upcoming concerts.
+   ### Perform a Search
+
+1. Allow **location access** *(if you would like searches by your location)*
+2. Enter your **search term** in the search box in the top
+3. Select **City**, **Venue**, **Genre**, or **Artist** in the drop down
+4. Select **Search**
+5. Select an **item** on the Search Results page to view Concert or Venue Details
+
+#### Concert Details Page
+This page displays a map to the venue, a link to the Venue Details page, and links to Artist Detail pages for each artist performing in the concert.
+
+#### Venue Details Page
+This page displays a map to the venue, parking and health protocol information for the venue, upcoming concerts, and nearby food and lodging.
+
+#### Artist Details Page
+This page displays the artist's genre, links to an artist's social media profiles, and upcoming concerts.
 ## Features on the app:
 The app is featured with unique designs and functionalities in each page including custom logos made by Jon. The contriubutors used Google Maps and Locations to provide directions to the venue and resutrants and hotels nearby.
 
