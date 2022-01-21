@@ -32,11 +32,10 @@ const displayArtist = (artist) => {
         );
     }
     artistDiv.innerHTML = `<h1>${artist.name}</h1>
-    ${
-        artist.classifications[0].genre
+    ${artist.classifications[0].genre
             ? `<h3>Genre: ${artist.classifications[0].genre.name}</h3>`
             : ""
-    }
+        }
     <div class="externalLinks">${externalLinkItems.join("")}</div>
           `;
 };
@@ -66,21 +65,18 @@ function displayUpcomingConcerts(concertData) {
         ).toLocaleString();
 
         return `
-            <a class="concert carouselItem" href="/concert.html?id=${
-                concert.id
+            <a class="concert carouselItem" href="/concert.html?id=${concert.id
             }">
                 <div class="concertImgContainer">
                     <img class="concertImg" src=${concert.images[0].url} />
                 </div>
                 <h3>${concert.name}</h3>
-                ${
-                    concert._embedded.venues[0].name
-                        ? `<p><i>${concert._embedded.venues[0].name}</i></p>`
-                        : ""
-                }
-                <b>${
-                    concert._embedded.venues[0].city.name
-                }, ${countryOrState}</b>
+                ${concert._embedded.venues[0].name
+                ? `<i>${concert._embedded.venues[0].name}</i>`
+                : ""
+            }
+                <b>${concert._embedded.venues[0].city.name
+            }, ${countryOrState}</b>
                 <h4>${startDate}</h4>
                 <div class="hover"></div>
             </a>
