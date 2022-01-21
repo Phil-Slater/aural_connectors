@@ -19,9 +19,10 @@ const displayArtist = (artist) => {
         <p><a href="${artist.externalLinks[key][0].url}">${key}</a></p>
       `)
     }
-    artistDiv.innerHTML = `<h2>${artist.name}</h2>
-          ${externalLinkItems.join('')}
-          ${artist.classifications[0].genre ? `<p>Genre: ${artist.classifications[0].genre.name}</p>` : ""}`
+    artistDiv.innerHTML = `<h1>${artist.name}</h1>
+    ${artist.classifications[0].genre ? `<h3>Genre: ${artist.classifications[0].genre.name}</h3>` : ""}      
+    ${externalLinkItems.join('')}
+          `
 
 };
 
