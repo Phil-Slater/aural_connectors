@@ -313,17 +313,17 @@ body {
 }
 
 .artist a {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        border-radius: 4px;
-        padding: 0.7em 1.5em;
-        width: 100%;
-        background-color: var(--color-primary);
-        text-decoration: none;
-        color: var(--color-background);
-        box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.3);
-        transition: 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0.7em 1.5em;
+    width: 100%;
+    background-color: var(--color-primary);
+    text-decoration: none;
+    color: var(--color-background);
+    box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.3);
+    transition: 0.2s ease-in-out;
 }
 
 .artist a:hover {
@@ -369,7 +369,11 @@ body {
     height: 9em;
 }
 
-#concertDetails a {
+#concertDetails .venue {
+    text-decoration: none;
+}
+
+#concertDetails .ticket {
     display: block;
     text-align: center;
     border-radius: 4px;
@@ -382,7 +386,7 @@ body {
     transition: 0.2s ease-in-out;
 }
 
-#concertDetails a:hover {
+#concertDetails .ticket:hover {
     background-color: #790402;
 }
 
@@ -431,7 +435,7 @@ body {
         width: calc(100% - 400px - 2em);
     }
 
-    #concertDetails a {
+    #concertDetails .ticket {
         width: fit-content;
         position: relative;
         top: 1em;
