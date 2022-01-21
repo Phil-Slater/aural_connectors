@@ -20,6 +20,7 @@ function wait(time) {
 }
 
 const displaySearchError = (message) => {
+    console.log("hi");
     const errorDiv = document.createElement("div");
     errorDiv.id = "error";
     errorDiv.innerHTML = message;
@@ -90,6 +91,7 @@ const handleSearchArtist = async (searchTerm) => {
             displayOptionsModal(artists, search);
         } else {
             noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`;
+            displaySearchError(`No artist results for "${searchTerm}"`);
         }
     } catch {
         displaySearchError(`No artist results for "${searchTerm}"`);
@@ -113,6 +115,7 @@ const handleSearchGenre = async (searchTerm) => {
             displayOptionsModal(genres, search);
         } else {
             noResultsDiv.innerHTML = `<h4>We couldn't find any results for ${searchTerm}.</h4>`;
+            displaySearchError(`No genre results for "${searchTerm}"`);
         }
     } catch {
         displaySearchError(`No genre results for "${searchTerm}"`);

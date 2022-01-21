@@ -195,6 +195,9 @@ body {
     background-color: black;
 }
 
+#detailsContainer .concert h3 {
+    margin: 0;
+}
 /* Concert styles */
 
 .artistLinks {
@@ -232,7 +235,6 @@ body {
 .horizontalContainer {
     overflow-x: auto;
     width: 96vw;
-    clip-path: fill-box;
     border: 2px solid var(--color-info-foreground);
     border-radius: 6px;
     background-color: var(--color-info-background);
@@ -248,7 +250,6 @@ body {
 #lodgingNearby {
     display: flex;
     column-gap: 1em;
-    overflow-x: auto;
     width: fit-content;
     padding: 1em;
     border-radius: 6px;
@@ -461,6 +462,7 @@ body {
 
     .artist {
         width: 70%;
+        margin-top: 1em;
     }
 
     #artistImages {
