@@ -73,18 +73,20 @@ function displayVenueDetails(venueDetails) {
     </div>
     `;
 
-    if (getVenueDetails.images) {
-        displayVenueImages(venueDetails.images);
-    }
+    displayVenueImages(venueDetails.images);
     venueInfo.innerHTML = venueHTML;
 }
 
 function displayVenueImages(images) {
-    const imagesHTML = images.map((image) => {
-        const imgSrc = image.url ? image.url : "img/venug.png";
-        return `<img src=${imgSrc}>`;
-    });
-    venueImages.innerHTML = imagesHTML.join("");
+    if (images) {
+        const imagesHTML = images.map((image) => {
+            const imgSrc = image.url ? image.url : "img/venug.png";
+            return `<img src=${imgSrc}>`;
+        });
+        venueImages.innerHTML = imagesHTML.join("");
+    } else {
+        venueImages.innerHTML = "No images found for this venue.";
+    }
 }
 
 function displayUpcomingConcerts(concertsData) {
@@ -113,7 +115,6 @@ function createLocationItemsHTML(locations) {
     return locations.map((location) => {
         console.log(location);
         const { lat, lng } = location.geometry.location;
-        // https://www.google.com/maps/search/?api=1&query=20.753946,-105.336549&query_place_id=ChIJ9zenlrklIYQRmmuskmtR97s
         const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${location.place_id}`;
         return `
         <a class="concert carouselItem mapLink" href="${mapLink}" target="_blank">
