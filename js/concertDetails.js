@@ -16,6 +16,7 @@ async function displayConcertDetails () {
     console.log(data)
     const artists = data._embedded.attractions
     const healthCheck = data.pleaseNote
+    const venueNames = await getVenueNames()
     const venue = data._embedded.venues[0]
     const startDate = new Date(
         data.dates.start.dateTime
@@ -24,6 +25,7 @@ async function displayConcertDetails () {
     `
     <div id="concertDetails">
         <h1>${data.name}</h1>
+        <h3>${venueNames}</h3>
         <p>${startDate}<p>
         <h>Health Check</h4> 
             ${healthCheck ? `<p>${healthCheck}</p>` : "No Health Check information available"}
@@ -37,7 +39,6 @@ async function displayConcertDetails () {
             </div>
     </div>
     `
-    console.log(data)
 
 displayConcertImages(data.images)
 concertInfo.innerHTML = concertHTML
@@ -48,12 +49,23 @@ async function getArtistNames () {
     const artistNames = document.getElementById("artistNames")
     const artists = data._embedded.attractions 
     const artistHTML = artists.map(artist => {
-        console.log(artist)
        return `<li><a href="/artists.html?id=${artist.id}">${artist.name}<a></li>`
     
     })
      
      artistNames.innerHTML = artistHTML.join(" ");
+
+}
+
+async function getVenueNames () {
+    const data = await getConcertDetails(params.id)
+    const venues = data._embedded.venues 
+    const venueHTML = venues.map(venue => {
+       return `<h2>${venue.name}<h2>`
+    
+    })
+     
+     return venueHTML.join(" ")
 
 }
 
@@ -66,3 +78,4 @@ async function displayConcertImages(images) {
 
 displayConcertDetails()
 getArtistNames()
+getVenueNames()
