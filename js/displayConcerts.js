@@ -1,4 +1,4 @@
-// export function
+
 const searchDiv = document.getElementById("search");
 
 export const displayConcerts = (concerts) => {

@@ -24,20 +24,16 @@ const displaySearchError = (message) => {
     errorDiv.id = "error";
     errorDiv.innerHTML = message;
     document.body.appendChild(errorDiv);
-    console.log("hi");
     wait(1)
         .then(() => {
-            console.log("move in");
             errorDiv.className = "errorDisplay";
             return wait(4000);
         })
         .then(() => {
-            console.log("move out");
             errorDiv.className = "";
             return wait(1000);
         })
         .then(() => {
-            console.log("remove");
             document.body.removeChild(errorDiv);
         });
 };
