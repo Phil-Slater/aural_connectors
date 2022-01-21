@@ -3,6 +3,7 @@ import { getParams } from "./getParams.js";
 
 const artistDiv = document.getElementById("artistDiv");
 const artistImages = document.getElementById("artistImages");
+const upcomingConcerts = document.getElementById("upcomingConcerts");
 const requiredKeys = ["id"];
 
 const params = getParams(requiredKeys);
@@ -51,9 +52,7 @@ async function displayArtistImages(images) {
     artistImages.innerHTML = `<img src="${images[index].url}">`;
 }
 
-async function displayUpcomingConcerts() {
-    const upcomingConcerts = document.getElementById("upcomingConcerts");
-    const concertData = await getConcerts(params.id, "attractionId");
+function displayUpcomingConcerts(concertData) {
     const events = concertData._embedded.events;
     const concertsHTML = events.map((concert) => {
         let countryOrState = concert._embedded.venues[0].country.name;
@@ -90,8 +89,23 @@ async function displayUpcomingConcerts() {
     upcomingConcerts.innerHTML = concertsHTML.join("");
 }
 
-getArtistDetails(params.id).then((artist) => {
-    displayArtist(artist);
-    displayArtistImages(artist.images);
-    displayUpcomingConcerts();
-});
+getArtistDetails(params.id)
+    .then((artist) => {
+        displayArtist(artist);
+        displayArtistImages(artist.images);
+    })
+    .catch(() => {
+        const detailsContainer = document.getElementById("detailsContainer");
+        detailsContainer.innerHTML = `<div class="horizontalContainer detailsError"><h4>We were unable to get the artist details.</h4></div>`;
+    });
+
+getConcerts(params.id, "attractionId")
+    .then((concertData) => {
+        lkj;
+        displayUpcomingConcerts(concertData);
+    })
+    .catch(() => {
+        upcomingConcerts.parentElement.classList.add("detailsError");
+        upcomingConcerts.parentElement.innerHTML =
+            "<h4>We we unable to get the upcoming concerts.</h4>";
+    });
