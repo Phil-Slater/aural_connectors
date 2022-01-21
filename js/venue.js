@@ -73,7 +73,9 @@ function displayVenueDetails(venueDetails) {
     </div>
     `;
 
-    displayVenueImages(venueDetails.images);
+    if (getVenueDetails.images) {
+        displayVenueImages(venueDetails.images);
+    }
     venueInfo.innerHTML = venueHTML;
 }
 
@@ -109,7 +111,10 @@ function displayUpcomingConcerts(concertsData) {
 
 function createLocationItemsHTML(locations) {
     return locations.map((location) => {
-        const mapLink = `https://www.google.com/maps/search/?api=1&query=${location.plus_code.compound_code}&query_place_id=${location.place_id}`;
+        console.log(location);
+        const { lat, lng } = location.geometry.location;
+        // https://www.google.com/maps/search/?api=1&query=20.753946,-105.336549&query_place_id=ChIJ9zenlrklIYQRmmuskmtR97s
+        const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${location.place_id}`;
         return `
         <a class="concert carouselItem mapLink" href="${mapLink}" target="_blank">
             <h3>${location.name}</h3>
@@ -148,6 +153,7 @@ getVenueDetails(params.id)
         displayLodging(lodges);
     })
     .catch((err) => {
+        console.log(err);
         venueInfo.innerHTML = "";
         venueImages.innerHTML = "Unable to retrieve venue information.";
         displayRestaurants([]);
@@ -158,6 +164,6 @@ getConcerts(params.id, "venueId")
     .then((concertsData) => {
         displayUpcomingConcerts(concertsData);
     })
-    .catch((err) => {
+    .catch(() => {
         upcomingConcerts.innerHTML = "Unable to retrieve upcoming concerts.";
     });
