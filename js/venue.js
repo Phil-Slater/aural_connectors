@@ -35,7 +35,6 @@ async function getNearbyLodges(location) {
     return results.results;
 }
 
-
 function displayVenueDetails(venueDetails) {
     const fullAddress = `${venueDetails.address.line1}, ${venueDetails.city.name}, ${venueDetails.state.stateCode}, ${venueDetails.country.countryCode}`;
     const venueHTML = `
@@ -68,11 +67,9 @@ function displayVenueDetails(venueDetails) {
             }
     </div>
     <div class="mapouter">
-        <div class="gmap_canvas">
-            <iframe width="400" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${venueDetails.name}${fullAddress}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-            <a href="https://fmovies-online.net"></a>
-            <br>
-            </div>
+        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
+            venueDetails.name
+        }${fullAddress}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
     `;
 

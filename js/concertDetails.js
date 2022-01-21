@@ -1,6 +1,5 @@
-import { getConcertDetails} from "./ticketmaster.js";
+import { getConcertDetails } from "./ticketmaster.js";
 import { getParams } from "./getParams.js";
-
 
 const requiredKeys = ["id"];
 
@@ -9,74 +8,73 @@ if (!params.id) {
     window.location.assign("/");
 }
 
-
-async function displayConcertDetails () {
-    const concertInfo = document.getElementById("concertInfo")
-    const data = await getConcertDetails(params.id)
-    console.log(data)
-    const artists = data._embedded.attractions
-    const healthCheck = data.pleaseNote
-    const venueNames = await getVenueNames()
-    const venue = data._embedded.venues[0]
+async function displayConcertDetails(concertDetails) {
+    const concertInfo = document.getElementById("concertInfo");
+    const healthCheck = concertDetails.pleaseNote;
+    const venueNames = getVenueNames(concertDetails._embedded.venues);
+    const venue = concertDetails._embedded.venues[0];
     const startDate = new Date(
-        data.dates.start.dateTime
+        concertDetails.dates.start.dateTime
     ).toLocaleString();
-    const concertHTML = 
-    `
+    const concertHTML = `
     <div id="concertDetails">
-        <h1>${data.name}</h1>
+        <h1>${concertDetails.name}</h1>
         <h3>${venueNames}</h3>
         <p>${startDate}<p>
-        <h>Health Check: </h4> 
-        ${healthCheck ? `<p>${healthCheck}</p>` : "No Health Check information available"}
-        <a href = ${data.url}>Buy Tickets</a>
+        <h4>Health Check: </h4> 
+        ${
+            healthCheck
+                ? `<p>${healthCheck}</p>`
+                : "No Health Check information available"
+        }
+        <a href = ${concertDetails.url}>Buy Tickets</a>
     </div>
     <div class="mapouter">
-        <div class="gmap_canvas">
-            <iframe width="400" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${venue.name}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-            <a href="https://fmovies-online.net"></a>
-            <br>
-            <style>.mapouter{margin-right:20px; margin-top:20px;height:400px;width:400px;}</style>
-            </div>
+        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
+            venue.name
+        }=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
-    `
+    `;
 
-displayConcertImages(data.images)
-concertInfo.innerHTML = concertHTML
+    displayConcertImages(concertDetails.images);
+    concertInfo.innerHTML = concertHTML;
 }
 
-async function getArtistNames () {
-    const data = await getConcertDetails(params.id)
-    const artistNames = document.getElementById("artistNames")
-    const artists = data._embedded.attractions 
-    const artistHTML = artists.map(artist => {
-       return `<li><a href="/artists.html?id=${artist.id}">${artist.name}<a></li>`
-    
+async function getArtistNames(concertDetails) {
+    const artistNames = document.getElementById("artistNames");
+    const artists = concertDetails._embedded.attractions;
+    const artistHTML = artists.map((artist) => {
+        return `<li><a href="/artists.html?id=${artist.id}">${artist.name}</a></li>`;
+    });
+
+    artistNames.innerHTML = artistHTML.join("");
+}
+
+function getVenueNames(venues) {
+    const venueHTML = venues.map((venue) => {
+        return `<h2>${venue.name}<h2>`;
+    });
+
+    return venueHTML.join(" ");
+}
+
+function displayConcertImages(images) {
+    const max = Math.max.apply(
+        Math,
+        images.map(function (img) {
+            return img.width;
+        })
+    );
+    const index = images.findIndex((image) => image.width === max);
+    concertImages.innerHTML = `<img src="${images[index].url}">`;
+}
+
+getConcertDetails(params.id)
+    .then((concertDetails) => {
+        displayConcertDetails(concertDetails);
+        getArtistNames(concertDetails);
     })
-     
-     artistNames.innerHTML = artistHTML.join(" ");
-
-}
-
-async function getVenueNames () {
-    const data = await getConcertDetails(params.id)
-    const venues = data._embedded.venues 
-    const venueHTML = venues.map(venue => {
-       return `<h2>${venue.name}<h2>`
-    
-    })
-     
-     return venueHTML.join(" ")
-
-}
-
-async function displayConcertImages(images) {
-    const max = Math.max.apply(Math, images.map(function (img) { return img.width; }))
-    const index = images.findIndex(image => image.width === max)
-    concertImages.innerHTML = `<img src="${images[index].url}">`
-}
- 
-
-displayConcertDetails()
-getArtistNames()
-getVenueNames()
+    .catch(() => {
+        const detailsContainer = document.getElementById("detailsContainer");
+        detailsContainer.innerHTML = `<div class="horizontalContainer detailsError"><h4>We were unable to get the concert details.</h4></div>`;
+    });
