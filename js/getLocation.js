@@ -10,7 +10,7 @@ function getCurrentPosition() {
 
 async function getLocation() {
     const location = JSON.parse(localStorage.getItem("location"));
-    if (location && Date.now() - location.time < 3600) {
+    if (location && Date.now() - location.time < 3600 * 1000) {
         return location.geoHash;
     } else {
         const position = await getCurrentPosition();
