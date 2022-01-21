@@ -27,7 +27,7 @@ async function displayConcertDetails(concertDetails) {
                 ? `<p>${healthCheck}</p>`
                 : "No Health Check information available"
         }
-        <a href = ${concertDetails.url}>Buy Tickets</a>
+        <a href="${concertDetails.url}" target="_blank">Buy Tickets</a>
     </div>
     <div class="mapouter">
         <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
