@@ -11,7 +11,7 @@ if (!params.id) {
 async function displayConcertDetails(concertDetails) {
     const concertInfo = document.getElementById("concertInfo");
     const healthCheck = concertDetails.pleaseNote;
-    const venueNames = await getVenueNames(concertDetails._embedded.venues);
+    const venueNames = getVenueNames(concertDetails._embedded.venues);
     const venue = concertDetails._embedded.venues[0];
     const startDate = new Date(
         concertDetails.dates.start.dateTime
@@ -27,16 +27,12 @@ async function displayConcertDetails(concertDetails) {
                 ? `<p>${healthCheck}</p>`
                 : "No Health Check information available"
         }
-        <a href = ${data.url}>Buy Tickets</a>
+        <a href = ${concertDetails.url}>Buy Tickets</a>
     </div>
     <div class="mapouter">
-        <div class="gmap_canvas">
-            <iframe width="400" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
-                venue.name
-            }=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-            <a href="https://fmovies-online.net"></a>
-            <br>
-            </div>
+        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
+            venue.name
+        }=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
     `;
 
@@ -54,7 +50,7 @@ async function getArtistNames(concertDetails) {
     artistNames.innerHTML = artistHTML.join("");
 }
 
-async function getVenueNames(venues) {
+function getVenueNames(venues) {
     const venueHTML = venues.map((venue) => {
         return `<h2>${venue.name}<h2>`;
     });
@@ -62,7 +58,7 @@ async function getVenueNames(venues) {
     return venueHTML.join(" ");
 }
 
-async function displayConcertImages(images) {
+function displayConcertImages(images) {
     const max = Math.max.apply(
         Math,
         images.map(function (img) {
@@ -73,7 +69,12 @@ async function displayConcertImages(images) {
     concertImages.innerHTML = `<img src="${images[index].url}">`;
 }
 
-getConcertDetails(params.id).then((concertDetails) => {
-    displayConcertDetails(concertDetails);
-    getArtistNames(concertDetails);
-});
+getConcertDetails(params.id)
+    .then((concertDetails) => {
+        displayConcertDetails(concertDetails);
+        getArtistNames(concertDetails);
+    })
+    .catch(() => {
+        const detailsContainer = document.getElementById("detailsContainer");
+        detailsContainer.innerHTML = `<div class="horizontalContainer detailsError"><h4>We were unable to get the concert details.</h4></div>`;
+    });
