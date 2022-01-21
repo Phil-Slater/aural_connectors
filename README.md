@@ -1,6 +1,6 @@
 # aural_connectors
 ## Purpose of the app:
-   Allow users to find concerts nearby.
+   Allows users to find concerts nearby.
 ## How to use:
    ### Perform a Search
 
