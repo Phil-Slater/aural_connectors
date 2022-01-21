@@ -97,7 +97,6 @@ getArtistDetails(params.id)
 
 getConcerts(params.id, "attractionId")
     .then((concertData) => {
-        lkj;
         displayUpcomingConcerts(concertData);
     })
     .catch(() => {
