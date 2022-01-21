@@ -324,7 +324,6 @@ body {
         color: var(--color-background);
         box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.3);
         transition: 0.2s ease-in-out;
-
 }
 
 .artist a:hover {
