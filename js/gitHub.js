@@ -19,6 +19,7 @@ function displayUserInfo(userData) {
     userData.map((user) => {
         const {
             avatar_url: image,
+            bio: bio,
             html_url: link,
             name: name,
             location: city,
@@ -29,6 +30,7 @@ function displayUserInfo(userData) {
         <img class="profileImg" src=${image}/>
         <a href=${link}>${name ? name : "Profile"}</a>
         ${city ? `<small> ${city} </small>` : " "}
+        ${bio ? `<p>${bio}</p>` : " "}
     </div>
     `;
         aboutUs.insertAdjacentHTML("beforeend", userInfo);
@@ -36,4 +38,4 @@ function displayUserInfo(userData) {
 }
 
 getUserInfo();
-// Usernames = [{name:’Jon-cundiff’, description: ‘words about Jon’}]
+

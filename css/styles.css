@@ -49,8 +49,10 @@ body {
     margin: 0 0 1em;
 }
 
-.pageContainer h3 {
-    text-align: center;
+.pageContainer p {
+
+    text-align: left;
+
 }
 
 .profileImg {
@@ -72,12 +74,16 @@ body {
     background-color: var(--color-info-background);
     flex-wrap: wrap;
     width: 90%;
-    align-content: center;
+    /* align-content: center; */
     padding: 2em;
     border-radius: 10px;
     border: 2px solid var(--color-info-foreground);
     box-shadow: 2px 2px 10px rgba(10, 10, 10, 0.6);
     /* margin: 1em 3em 0 0; */
+}
+
+.profile img {
+    align-content: center;
 }
 
 #aboutUs a {
@@ -252,7 +258,7 @@ body {
     padding: 2em;
 }
 
-#venueInfo, #concertInfo {
+#venueInfo, #concertInfo, #featuredArtists {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -260,6 +266,9 @@ body {
     column-gap: 3em;
 }
 
+#featuredArtists {
+    flex-direction: column;
+}
 
 #venueDetails h1 {
     margin-top: 0;
@@ -303,6 +312,8 @@ body {
 #artistNames li {
 list-style-type: none;
 margin-top: 1em;
+font-size: larger;
+font-weight: bold;
 }
 
 #artistNames a {
@@ -312,6 +323,20 @@ margin-top: 1em;
 .concert.mapLink {
     text-align: center;
     height: 9em;
+}
+
+#concertDetails a {
+    border-radius: 4px;
+    padding: .7em 1.5em;
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    box-shadow: 1px 1px 20px rgba(20, 20, 20, 0.3);
+    transition: .2s ease-in-out;
+}
+
+#concertDetails a:hover {
+    background-color: #790402;
+    
 }
 /* Venues styles */
 
