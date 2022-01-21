@@ -19,18 +19,22 @@ async function displayConcertDetails(concertDetails) {
     const concertHTML = `
     <div id="concertDetails">
         <h1>${concertDetails.name}</h1>
-        <h3>${venueNames}</h3>
+        <h2>Venue:</h2>
+        ${venueNames}
         <p>${startDate}<p>
         <h4>Health Check: </h4> 
-        ${healthCheck
-            ? `<p>${healthCheck}</p>`
-            : "No Health Check information available"
+        ${
+            healthCheck
+                ? `<p>${healthCheck}</p>`
+                : "No Health Check information available"
         }
-        <a class="ticket" href="${concertDetails.url
+        <a class="ticket" href="${
+            concertDetails.url
         }" target="_blank">Buy Tickets</a>
     </div>
     <div class="mapouter">
-        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${venue.name
+        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
+            venue.name
         }=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
     `;
@@ -43,7 +47,7 @@ async function getArtistNames(concertDetails) {
     const artistNames = document.getElementById("artistNames");
     const artists = concertDetails._embedded.attractions;
     const artistHTML = artists.map((artist) => {
-        return `<li><a href="/artist.html?id=${artist.id}">${artist.name}</a></li>`;
+        return `<h4><a href="/artist.html?id=${artist.id}">${artist.name}</a></h4>`;
     });
 
     artistNames.innerHTML = artistHTML.join("");
