@@ -15,7 +15,6 @@ async function getUserInfo() {
 }
 
 function displayUserInfo(userData) {
-    console.log(userData);
     userData.map((user) => {
         const {
             avatar_url: image,
@@ -38,4 +37,3 @@ function displayUserInfo(userData) {
 }
 
 getUserInfo();
-

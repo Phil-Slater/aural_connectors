@@ -42,33 +42,28 @@ function displayVenueDetails(venueDetails) {
         <h1>${venueDetails.name}</h1>
         <p>${fullAddress}</p>
         <h4>Parking Details: </h4>
-        ${
-            venueDetails.parking
-                ? `<p>${venueDetails.parkingDetail}</p>`
-                : "Info unavailable"
+        ${venueDetails.parking
+            ? `<p>${venueDetails.parkingDetail}</p>`
+            : "Info unavailable"
         }
         <h4>General Rules:</h4> 
-            ${
-                venueDetails.generalInfo
-                    ? `<p>${venueDetails.generalInfo.generalRule}</p>`
-                    : "Info unavailable"
-            }
+            ${venueDetails.generalInfo
+            ? `<p>${venueDetails.generalInfo.generalRule}</p>`
+            : "Info unavailable"
+        }
         <h4>Venue Accessibility: </h4>
-            ${
-                venueDetails.accessibleSeatingDetail
-                    ? `<p>${venueDetails.accessibleSeatingDetail}`
-                    : "Info unavailable"
-            }
+            ${venueDetails.accessibleSeatingDetail
+            ? `<p>${venueDetails.accessibleSeatingDetail}`
+            : "Info unavailable"
+        }
         <h4>Contact us: </h4>
-            ${
-                venueDetails.boxOfficeInfo
-                    ? `<p>${venueDetails.boxOfficeInfo.phoneNumberDetail}</p>`
-                    : "Info unavailable"
-            }
+            ${venueDetails.boxOfficeInfo
+            ? `<p>${venueDetails.boxOfficeInfo.phoneNumberDetail}</p>`
+            : "Info unavailable"
+        }
     </div>
     <div class="mapouter">
-        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
-            venueDetails.name
+        <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${venueDetails.name
         }${fullAddress}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
     `;
@@ -113,7 +108,6 @@ function displayUpcomingConcerts(concertsData) {
 
 function createLocationItemsHTML(locations) {
     return locations.map((location) => {
-        console.log(location);
         const { lat, lng } = location.geometry.location;
         const mapLink = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${location.place_id}`;
         return `
@@ -154,7 +148,6 @@ getVenueDetails(params.id)
         displayLodging(lodges);
     })
     .catch((err) => {
-        console.log(err);
         venueInfo.innerHTML = "";
         venueImages.innerHTML = "Unable to retrieve venue information.";
         displayRestaurants([]);
