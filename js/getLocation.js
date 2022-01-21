@@ -2,10 +2,29 @@ import Geohash from "https://cdn.jsdelivr.net/npm/latlon-geohash@2.0.0";
 import { getConcerts } from "./ticketmaster.js";
 import { displayConcerts } from "./displayConcerts.js";
 
-function getLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-        getGeoHash(position.coords.latitude, position.coords.longitude);
+function getCurrentPosition() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
     });
+}
+
+async function getLocation() {
+    const location = JSON.parse(localStorage.getItem("location"));
+    if (location && Date.now() - location.time < 3600) {
+        return location.geoHash;
+    } else {
+        const position = await getCurrentPosition();
+        const geoHash = getGeoHash(
+            position.coords.latitude,
+            position.coords.longitude
+        );
+        const storageItem = {
+            geoHash,
+            time: Date.now(),
+        };
+        localStorage.setItem("location", JSON.stringify(storageItem));
+        return geoHash;
+    }
 }
 
 function appendGeoHashSearchLink(geoHash) {
@@ -19,11 +38,18 @@ function appendGeoHashSearchLink(geoHash) {
     );
 }
 
-async function getGeoHash(latitude, longitude) {
+function getGeoHash(latitude, longitude) {
     const geoHash = Geohash.encode(latitude, longitude, 6);
-    const response = await getConcerts(geoHash, "geoPoint", 50, 3);
-    displayConcerts(response._embedded.events);
-    appendGeoHashSearchLink(geoHash);
+    return geoHash;
 }
 
-getLocation();
+getLocation()
+    .then(async (geoHash) => {
+        const response = await getConcerts(geoHash, "geoPoint", 50, 3);
+        displayConcerts(response._embedded.events);
+        appendGeoHashSearchLink(geoHash);
+    })
+    .catch(() => {
+        const infoContainer = document.getElementById("infoContainer");
+        infoContainer.innerHTML = `<div class="horizontalContainer detailsError"><h4>We were unable to get the concerts by your location.</h4></div>`;
+    });
