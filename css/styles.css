@@ -297,7 +297,7 @@ body {
     margin: auto;
     margin-top: 5%;
     align-items: center;
-    width: 40%;
+    width: calc(100% - 2em);
     padding: 2em;
     column-gap: 10px;
     background-color: var(--color-info-background);
@@ -312,9 +312,19 @@ body {
     box-shadow: 2px 2px 10px var(--color-secondary);
 }
 
-.artist a {
+.externalLinks {
     display: flex;
     flex-direction: column;
+    margin-top: 0.5em;
+    row-gap: 0.5em;
+}
+
+.externalLinks p {
+    margin: 0;
+}
+
+.externalLinks a {
+    display: inline-block;
     text-align: center;
     border-radius: 4px;
     padding: 0.7em 1.5em;
@@ -326,7 +336,7 @@ body {
     transition: 0.2s ease-in-out;
 }
 
-.artist a:hover {
+.externalLinks a:hover {
     background-color: #790402;
 }
 
@@ -345,6 +355,10 @@ body {
     position: relative;
     bottom: 1em;
     column-gap: 1em;
+    margin: 0;
+}
+
+#artistDiv h3 {
     margin: 0;
 }
 
@@ -443,6 +457,28 @@ body {
 
     .mapouter {
         width: 400px;
+    }
+
+    .artist {
+        width: 70%;
+    }
+
+    #artistImages {
+        text-align: center;
+    }
+    #artistImages img {
+        max-width: 680px;
+    }
+
+    .externalLinks {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        column-gap: 0.5em;
+    }
+
+    .externalLinks a {
+        width: 9em;
     }
 }
 
