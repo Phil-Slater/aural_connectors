@@ -354,6 +354,7 @@ body {
 #artistNames {
     display: flex;
     position: relative;
+    flex-wrap: wrap;
     bottom: 1em;
     column-gap: 1em;
     margin: 0;
@@ -447,7 +448,8 @@ body {
         column-gap: 3em;
     }
 
-    #concertDetails, #venueDetails {
+    #concertDetails,
+    #venueDetails {
         width: calc(100% - 400px - 2em);
     }
 
