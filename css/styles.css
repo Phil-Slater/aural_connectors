@@ -447,7 +447,7 @@ body {
         column-gap: 3em;
     }
 
-    #concertDetails {
+    #concertDetails, #venueDetails {
         width: calc(100% - 400px - 2em);
     }
 

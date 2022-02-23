@@ -9,10 +9,12 @@ if (!params.id) {
 }
 
 async function displayConcertDetails(concertDetails) {
+
     const concertInfo = document.getElementById("concertInfo");
     const healthCheck = concertDetails.pleaseNote;
     const venueNames = getVenueNames(concertDetails._embedded.venues);
     const venue = concertDetails._embedded.venues[0];
+    const fullAddress = `${venue.address.line1}, ${venue.city.name}, ${venue.state.stateCode}, ${venue.country.countryCode}`;
     const startDate = new Date(
         concertDetails.dates.start.dateTime
     ).toLocaleString();
@@ -24,18 +26,18 @@ async function displayConcertDetails(concertDetails) {
         <p>${startDate}<p>
         <h4>Health Check: </h4> 
         ${
-            healthCheck
-                ? `<p>${healthCheck}</p>`
-                : "No Health Check information available"
+          healthCheck
+            ? `<p>${healthCheck}</p>`
+            : "No Health Check information available"
         }
         <a class="ticket" href="${
-            concertDetails.url
+          concertDetails.url
         }" target="_blank">Buy Tickets</a>
     </div>
     <div class="mapouter">
         <iframe width="100%" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=${
-            venue.name
-        }=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+          venue.name
+        }${fullAddress}=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
     </div>
     `;
 
